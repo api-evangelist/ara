@@ -1,8 +1,25 @@
 aid: ara
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ara.png
 name: Ara
-description: Ara is a company surfaced as a portfolio company of techstars, y-combinator and added to
-  the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  Ara is a digital out-of-home (DOOH) advertising network that finances, installs, and operates
+  rich-media displays across mobility, municipal, parking, and retail settings. It describes itself
+  as the largest U.S. owner-operator of rideshare and taxi car-top digital billboards, running a
+  long-term partnership with Uber alongside in-car, storefront, and parking/municipal kiosk screens.
+  Ara owns the hardware and content-management operations under a subscription model so partners avoid
+  cap-ex and operational overhead. No public developer API, SDK, or developer portal is currently
+  published; this profile was added to the API Evangelist network as a portfolio/enrichment lead.
 url: https://raw.githubusercontent.com/api-evangelist/ara/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -13,9 +30,17 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
+- Advertising
+- Digital Out-of-Home
+- DOOH
+- Mobility
+- Rideshare
+- Displays
+- Hardware
+- Retail Media
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -23,5 +48,18 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/ara-domain-security.yml
 - type: Website
-  url: https://arascreens.com/
+  url: https://www.arascreens.com/
+- type: PrivacyPolicy
+  url: https://www.arascreens.com/privacy-policy
+- type: TermsOfService
+  url: https://www.arascreens.com/terms-and-conditions
+- type: Support
+  url: mailto:support@arascreens.com
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
