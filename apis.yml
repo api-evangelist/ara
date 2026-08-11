@@ -13,13 +13,20 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ara.png
 name: Ara
 description: >-
-  Ara is a digital out-of-home (DOOH) advertising network that finances, installs, and operates
-  rich-media displays across mobility, municipal, parking, and retail settings. It describes itself
-  as the largest U.S. owner-operator of rideshare and taxi car-top digital billboards, running a
-  long-term partnership with Uber alongside in-car, storefront, and parking/municipal kiosk screens.
-  Ara owns the hardware and content-management operations under a subscription model so partners avoid
-  cap-ex and operational overhead. No public developer API, SDK, or developer portal is currently
-  published; this profile was added to the API Evangelist network as a portfolio/enrichment lead.
+  Ara (Ara Labs, Inc.) is a digital out-of-home (DOOH) advertising network that finances, installs,
+  and operates rich-media displays across mobility, municipal, parking, and retail settings. It
+  describes itself as the largest U.S. owner-operator of rideshare and taxi car-top digital
+  billboards, running a long-term partnership with Uber alongside in-car, storefront, and
+  parking/municipal kiosk screens. Ara owns the hardware and content-management operations under a
+  monthly subscription model so fleet owners, retailers, parking operators and municipalities avoid
+  cap-ex and operational overhead, and it also sells self-serve NYC taxi-top ad time by the hour or
+  day. Its own site names Founders Fund, Coatue, Rosecliff Ventures, iHeart Media and Kellogg's as
+  investors. Ara publishes NO public API, SDK, developer portal, documentation site or
+  machine-readable specification. Contract discovery in August 2026 found a live private backend at
+  api.arascreens.com (Ruby on Rails on Heroku) that answers every route with an HTTP Basic challenge,
+  a React driver/operations application at app.arascreens.com, and a third-party signage CMS front
+  end at cms.arascreens.com — all credentialed product infrastructure, none of it a developer
+  offering.
 url: https://raw.githubusercontent.com/api-evangelist/ara/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -30,7 +37,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-18'
+modified: '2026-08-10'
 tags:
 - Company
 - Advertising
@@ -58,8 +65,45 @@ common:
   url: https://www.arascreens.com/terms-and-conditions
 - type: Support
   url: mailto:support@arascreens.com
+- type: HelpCenter
+  url: https://www.arascreens.com/faq
+- type: Pricing
+  url: https://www.arascreens.com/cartopadsorder
+- type: SignUp
+  url: https://app.arascreens.com/sign_up
+- type: Plans
+  url: plans/ara-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/ara-rate-limits.yml
+- type: LLMsTxt
+  url: llms/ara-llms.txt
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-10'
+  status: minimal
+  artifacts_added: 4
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  note: >-
+    Full contract discovery run against every host resolved from arascreens.com. No API,
+    spec, docs, SDK, package, agent card or well-known document exists anywhere. The
+    well-known/ and rate-limits/ artifacts record verified ABSENCES and emit no presence
+    pointer.
+x-coverage:
+  state: none
+  reason: no-developer-program
+  detail: >-
+    Ara's only API host, api.arascreens.com, is a private Rails backend that answers every
+    route — including /health — with an HTTP Basic challenge and serves no spec at any
+    conventional path, and the 11-page Squarespace marketing sitemap contains no developer,
+    docs or API page at all.
+  evidence:
+  - url: https://api.arascreens.com/health
+    status: 401
+  - url: https://api.arascreens.com/openapi.json
+    status: 404
+  - url: https://www.arascreens.com/sitemap.xml
+    status: 200
+  - url: https://www.arascreens.com/llms.txt
+    status: 404
+  - url: https://www.arascreens.com/.well-known/agent-card.json
+    status: 404
+  checked: '2026-08-10'

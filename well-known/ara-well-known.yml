@@ -1,0 +1,148 @@
+generated: '2026-08-10'
+method: probed
+source: live HTTP probes of every Ara host discovered via DNS
+description: >-
+  Probe of the RFC 8615 /.well-known/ namespace across every Ara host we could find.
+  NOTHING WAS FOUND. Every path on the marketing host (www.arascreens.com, Squarespace)
+  and the API host (api.arascreens.com, Rails on Heroku) returns 404. The driver/ops
+  application host (app.arascreens.com) is a client-side React SPA whose catch-all route
+  answers 200 with the SAME 3,890-byte HTML shell for every path, including paths that do
+  not exist — those 200s are NOT documents and are recorded here as misses. The signage
+  CMS host (cms.arascreens.com) is a CloudFront/S3 origin that returns 403 for any path
+  other than its own index. No WellKnown or SecurityTxt pointer is emitted in apis.yml,
+  because Ara serves no well-known document on any host.
+hosts_probed:
+- host: www.arascreens.com
+  platform: Squarespace
+  role: marketing site
+- host: api.arascreens.com
+  platform: Ruby on Rails / Heroku
+  role: private application API (HTTP Basic auth on every route)
+- host: app.arascreens.com
+  platform: React SPA / CloudFront
+  role: driver + operations web application
+- host: cms.arascreens.com
+  platform: CloudFront / Amazon S3
+  role: third-party digital-signage CMS front end ("WiCanvas")
+probes:
+- host: www.arascreens.com
+  path: /.well-known/security.txt
+  status: 404
+  content_type: application/json
+  result: miss
+- host: www.arascreens.com
+  path: /.well-known/openid-configuration
+  status: 404
+  content_type: text/html
+  result: miss
+- host: www.arascreens.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  content_type: text/html
+  result: miss
+- host: www.arascreens.com
+  path: /.well-known/oauth-protected-resource
+  status: 404
+  content_type: text/html
+  result: miss
+- host: www.arascreens.com
+  path: /.well-known/api-catalog
+  status: 404
+  content_type: text/html
+  result: miss
+- host: www.arascreens.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+  content_type: text/html
+  result: miss
+- host: www.arascreens.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: text/html
+  result: miss
+- host: www.arascreens.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: text/html
+  result: miss
+- host: www.arascreens.com
+  path: /llms.txt
+  status: 404
+  content_type: text/plain
+  result: miss
+- host: api.arascreens.com
+  path: /.well-known/security.txt
+  status: 404
+  content_type: text/html
+  result: miss
+- host: api.arascreens.com
+  path: /.well-known/openid-configuration
+  status: 404
+  content_type: text/html
+  result: miss
+- host: api.arascreens.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  content_type: text/html
+  result: miss
+- host: api.arascreens.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: text/html
+  result: miss
+- host: api.arascreens.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: text/html
+  result: miss
+- host: app.arascreens.com
+  path: /.well-known/security.txt
+  status: 200
+  content_type: text/html
+  result: miss
+  note: >-
+    SPA catch-all. Identical 3,890-byte HTML shell returned for every path on this host,
+    including nonexistent ones. Not a document — recorded as a miss per the pipeline rule
+    that a 200 returning an HTML/SPA shell is not evidence of a served surface.
+- host: app.arascreens.com
+  path: /.well-known/agent-card.json
+  status: 200
+  content_type: text/html
+  result: miss
+  note: SPA catch-all HTML shell, not an AgentCard. No a2a/ artifact written.
+- host: app.arascreens.com
+  path: /.well-known/agent.json
+  status: 200
+  content_type: text/html
+  result: miss
+  note: SPA catch-all HTML shell, not an AgentCard. No a2a/ artifact written.
+- host: app.arascreens.com
+  path: /.well-known/openid-configuration
+  status: 200
+  content_type: text/html
+  result: miss
+  note: SPA catch-all HTML shell.
+- host: cms.arascreens.com
+  path: /.well-known/security.txt
+  status: 403
+  content_type: application/xml
+  result: miss
+  note: CloudFront/S3 AccessDenied.
+- host: cms.arascreens.com
+  path: /.well-known/agent-card.json
+  status: 403
+  content_type: application/xml
+  result: miss
+summary:
+  paths_probed: 20
+  documents_found: 0
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: false
+  api_catalog: false
+  ai_plugin: false
+  agent_card: false
+pointers_emitted: []
+pointer_note: >-
+  No WellKnown, SecurityTxt or AgentCard pointer is wired into apis.yml. This file records
+  a verified ABSENCE, which is valid data — it must never be read as a presence.

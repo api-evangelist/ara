@@ -1,0 +1,27 @@
+generated: '2026-08-10'
+method: searched
+source: https://www.arascreens.com/
+provider: Ara
+providerId: ara
+description: >-
+  Ara publishes no API documentation of any kind, and therefore publishes no rate limits.
+  The only Ara API host that exists — api.arascreens.com, a Ruby on Rails application on
+  Heroku — answers every route with HTTP Basic authentication (401,
+  WWW-Authenticate: Basic realm="Application"), so no rate-limit response headers can be
+  observed anonymously either. This is an honest zero, recorded rather than omitted.
+limit_count: 0
+limits: []
+headers: []
+exhaustion_status: null
+searched:
+- url: https://www.arascreens.com/
+  status: 200
+  note: Squarespace marketing site; 11 pages in the sitemap, none developer-facing.
+- url: https://www.arascreens.com/sitemap.xml
+  status: 200
+  note: Full page inventory — no docs, developer, or API page exists.
+- url: https://api.arascreens.com/health
+  status: 401
+  note: >-
+    HTTP Basic challenge on the API host. No RateLimit-*, X-RateLimit-* or Retry-After
+    headers present on the anonymous response.

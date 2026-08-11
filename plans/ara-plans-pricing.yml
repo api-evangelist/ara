@@ -1,0 +1,68 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+generated: '2026-08-10'
+method: searched
+source: https://www.arascreens.com/cartopadsorder
+provider: Ara
+providerId: ara
+created: '2026-08-10'
+modified: '2026-08-10'
+tags:
+- Advertising
+- Digital Out-of-Home
+- DOOH
+- Rideshare
+description: >-
+  Ara publishes NO API plans, because Ara publishes no API. plan_count is therefore 0 for
+  the purpose of the API rating and must not be read otherwise. What Ara does publish is a
+  self-serve MEDIA rate card for buying time on its New York City taxi-top screens — three
+  fixed durations, checkout via Squarespace Commerce. Those media rates are recorded below
+  under media_rates[] so the commercial surface is captured honestly, and deliberately NOT
+  under plans[], so they are never mistaken for API pricing tiers. Anything larger than a
+  full day is a "custom campaign" handled by email, and the partner/operator side of the
+  business (fleet owners, retailers, municipalities) is contact-only with no published
+  price at all.
+plan_count: 0
+plans: []
+media_rates:
+  applies_to: cartop-advertising-media-purchase
+  not_api_plans: true
+  currency: USD
+  billing: one-time purchase per campaign, checkout at https://www.arascreens.com/cart
+  market: New York City taxi-top network
+  entries:
+  - name: 1 Hour
+    price: 500.00
+    unit: 1 hour of cartop display time
+    url: https://www.arascreens.com/cartopadsorder
+  - name: 2 Hours
+    price: 800.00
+    unit: 2 hours of cartop display time
+    url: https://www.arascreens.com/cartopadsorder
+  - name: Full Day
+    price: 2000.00
+    unit: 1 day of cartop display time
+    url: https://www.arascreens.com/cartopadsorder
+  custom:
+    available: true
+    mechanism: email
+    contact: support@arascreens.com
+    note: '"Want to discuss a custom campaign? EMAIL US" — no published price.'
+  conditions:
+  - Content must be approved by Ara and meet its content guidelines.
+  - Screens loop through multiple advertisers; a buyer does not get exclusive display.
+  - ZIP-code / geographic targeting is explicitly NOT offered for these self-serve buys.
+partner_side:
+  published_pricing: false
+  model: >-
+    Fleet owners, retailers, parking operators and municipalities are onboarded under a
+    "simple monthly fee" subscription in which Ara finances, installs and maintains the
+    hardware and provides the CMS. No dollar figure is published anywhere on the site.
+  note: Contact-only; the homepage CTA is "WORK WITH US" into an on-page form.
+evidence:
+- url: https://www.arascreens.com/cartopadsorder
+  status: 200
+- url: https://www.arascreens.com/cartopadscontact
+  status: 200
+- url: https://www.arascreens.com/faq
+  status: 200
