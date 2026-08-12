@@ -1,6 +1,6 @@
-generated: '2026-08-10'
+generated: '2026-08-12'
 method: probed
-source: live HTTP probes of every Ara host discovered via DNS
+source: live HTTP probes of every Ara host discovered via DNS + passive subdomain enumeration
 description: >-
   Probe of the RFC 8615 /.well-known/ namespace across every Ara host we could find.
   NOTHING WAS FOUND. Every path on the marketing host (www.arascreens.com, Squarespace)
@@ -11,6 +11,33 @@ description: >-
   CMS host (cms.arascreens.com) is a CloudFront/S3 origin that returns 403 for any path
   other than its own index. No WellKnown or SecurityTxt pointer is emitted in apis.yml,
   because Ara serves no well-known document on any host.
+x-round-2:
+  date: '2026-08-12'
+  note: >-
+    Second pass widened the host inventory with passive subdomain enumeration
+    (api.hackertarget.com/hostsearch) rather than relying on guessed subdomains, and
+    surfaced four production hosts the first pass never saw: outdoor.arascreens.com,
+    rts.arascreens.com, stationary.arascreens.com and assets.arascreens.com. All four
+    were probed for the same /.well-known/ set and for spec paths. Every one missed.
+    The conclusion of the first pass is unchanged and is now measured against a complete
+    host list instead of an assumed one.
+  discovery_source: https://api.hackertarget.com/hostsearch/?q=arascreens.com
+  hosts_enumerated: 18
+  production_hosts_probed: 8
+  staging_hosts_skipped:
+  - staging.arascreens.com
+  - staging-api.arascreens.com
+  - staging-cloudfront.arascreens.com
+  - assets-staging.arascreens.com
+  - assets-review.arascreens.com
+  - rts-staging.arascreens.com
+  - stationary-staging.arascreens.com
+  - cms-prod-1.arascreens.com
+  - app-cloudfront.arascreens.com
+  staging_note: >-
+    Staging/internal origins are deliberately NOT probed or recorded. They are not a
+    public developer surface and their contents would not be a published contract even
+    if they answered.
 hosts_probed:
 - host: www.arascreens.com
   platform: Squarespace
@@ -24,6 +51,31 @@ hosts_probed:
 - host: cms.arascreens.com
   platform: CloudFront / Amazon S3
   role: third-party digital-signage CMS front end ("WiCanvas")
+- host: outdoor.arascreens.com
+  platform: Vite/React SPA
+  role: >-
+    Product marketing page for the Ara O49 55-inch indoor/outdoor display. Serves a real
+    404 ("Not found", 9 bytes) for paths carrying a file extension but returns the same
+    11,626-byte HTML shell for EVERY extensionless path — verified with a nonsense control
+    path (/zzz-does-not-exist-9f3a), which returned an identical MD5 to /docs and /graphql.
+    No 200 from this host is evidence of a served document.
+  first_seen: '2026-08-12'
+- host: rts.arascreens.com
+  platform: Node/Express
+  role: >-
+    Unauthenticated service whose root answers 200 with the 23-byte Express scaffold string
+    "respond with a resource". Every other path — including /health, /openapi.json and the
+    whole /.well-known/ set — returns a 9-byte 404. No routes, no spec, no documentation,
+    and nothing that identifies it as a developer-facing surface.
+  first_seen: '2026-08-12'
+- host: stationary.arascreens.com
+  platform: unknown edge
+  role: Answers 404 with a zero-byte body on every path including the root.
+  first_seen: '2026-08-12'
+- host: assets.arascreens.com
+  platform: CloudFront / Amazon S3
+  role: Static asset origin; 403 AccessDenied on every path including the root.
+  first_seen: '2026-08-12'
 probes:
 - host: www.arascreens.com
   path: /.well-known/security.txt
@@ -133,8 +185,123 @@ probes:
   status: 403
   content_type: application/xml
   result: miss
+- host: outdoor.arascreens.com
+  path: /.well-known/security.txt
+  status: 404
+  content_type: text/plain
+  result: miss
+  probed: '2026-08-12'
+- host: outdoor.arascreens.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: text/plain
+  result: miss
+  probed: '2026-08-12'
+- host: outdoor.arascreens.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: text/plain
+  result: miss
+  probed: '2026-08-12'
+- host: outdoor.arascreens.com
+  path: /.well-known/openid-configuration
+  status: 404
+  content_type: text/plain
+  result: miss
+  probed: '2026-08-12'
+- host: outdoor.arascreens.com
+  path: /.well-known/api-catalog
+  status: 404
+  content_type: text/plain
+  result: miss
+  probed: '2026-08-12'
+- host: outdoor.arascreens.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+  content_type: text/plain
+  result: miss
+  probed: '2026-08-12'
+- host: outdoor.arascreens.com
+  path: /llms.txt
+  status: 404
+  content_type: text/plain
+  result: miss
+  probed: '2026-08-12'
+- host: outdoor.arascreens.com
+  path: /robots.txt
+  status: 200
+  content_type: text/plain
+  result: hit-not-a-discovery-document
+  probed: '2026-08-12'
+  note: >-
+    A 160-byte robots.txt that allows Googlebot, Bingbot, Twitterbot, facebookexternalhit
+    and "*" — a permissive crawl policy, not a discovery document. It is the ONLY 200 with
+    a real body served from any Ara host in the /.well-known/ or root-discovery namespace,
+    and it carries no Sitemap: line and no reference to any API. Recorded for completeness;
+    it earns no pointer.
+- host: rts.arascreens.com
+  path: /.well-known/security.txt
+  status: 404
+  content_type: text/html
+  result: miss
+  probed: '2026-08-12'
+- host: rts.arascreens.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: text/html
+  result: miss
+  probed: '2026-08-12'
+- host: rts.arascreens.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: text/html
+  result: miss
+  probed: '2026-08-12'
+- host: rts.arascreens.com
+  path: /.well-known/openid-configuration
+  status: 404
+  content_type: text/html
+  result: miss
+  probed: '2026-08-12'
+- host: rts.arascreens.com
+  path: /.well-known/api-catalog
+  status: 404
+  content_type: text/html
+  result: miss
+  probed: '2026-08-12'
+- host: stationary.arascreens.com
+  path: /.well-known/security.txt
+  status: 404
+  content_type: text/html
+  result: miss
+  probed: '2026-08-12'
+- host: stationary.arascreens.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: text/html
+  result: miss
+  probed: '2026-08-12'
+- host: stationary.arascreens.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: text/html
+  result: miss
+  probed: '2026-08-12'
+- host: assets.arascreens.com
+  path: /.well-known/security.txt
+  status: 403
+  content_type: application/xml
+  result: miss
+  probed: '2026-08-12'
+  note: CloudFront/S3 AccessDenied on every path including the root.
+- host: assets.arascreens.com
+  path: /.well-known/agent-card.json
+  status: 403
+  content_type: application/xml
+  result: miss
+  probed: '2026-08-12'
 summary:
-  paths_probed: 20
+  paths_probed: 39
   documents_found: 0
   security_txt: false
   openid_configuration: false
@@ -142,6 +309,8 @@ summary:
   api_catalog: false
   ai_plugin: false
   agent_card: false
+  hosts_covered: 8
+  only_non_empty_200: outdoor.arascreens.com/robots.txt
 pointers_emitted: []
 pointer_note: >-
   No WellKnown, SecurityTxt or AgentCard pointer is wired into apis.yml. This file records

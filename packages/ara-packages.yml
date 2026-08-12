@@ -1,0 +1,86 @@
+generated: '2026-08-12'
+method: probed
+source: >-
+  Unauthenticated queries against npm, PyPI, RubyGems, crates.io, Packagist and NuGet,
+  plus the GitHub repository-search API and direct GitHub org-page fetches.
+provider: Ara
+providerId: ara
+description: >-
+  Ara publishes NO client libraries, SDKs or CLI binaries in any public package registry,
+  which follows directly from the fact that Ara publishes no API for a package to wrap.
+  This file records a VERIFIED ABSENCE — every registry below was actually queried and
+  answered — so it must never be read as a presence. No `Packages` pointer and no `SDKs`
+  pointer is wired into apis.yml, because emitting either would credit Ara with an SDK
+  surface it does not have.
+package_count: 0
+official_package_count: 0
+packages: []
+registries_checked:
+- registry: npm
+  endpoint: https://registry.npmjs.org/-/v1/search?text=arascreens
+  status: 200
+  matches: 0
+  note: >-
+    Zero results for "arascreens". A broader "ara screens dooh" search returns only
+    unrelated generic packages (react-native-screens, vue-screen-utils and similar);
+    none is first-party to Ara Labs, Inc.
+- registry: npm
+  endpoint: https://registry.npmjs.org/@arascreens/sdk
+  status: 404
+  matches: 0
+- registry: pypi
+  endpoint: https://pypi.org/pypi/ara-screens/json
+  status: 404
+  matches: 0
+- registry: rubygems
+  endpoint: https://rubygems.org/api/v1/gems/arascreens.json
+  status: 404
+  matches: 0
+  note: >-
+    Checked specifically because api.arascreens.com is a Ruby on Rails application, so a
+    first-party Ruby gem was the most plausible package to exist. It does not.
+- registry: crates.io
+  endpoint: https://crates.io/api/v1/crates/arascreens
+  status: 404
+  matches: 0
+- registry: packagist
+  endpoint: https://repo.packagist.org/packages/arascreens/sdk.json
+  status: 404
+  matches: 0
+- registry: nuget
+  endpoint: https://api.nuget.org/v3/registration5-semver1/arascreens/index.json
+  status: 404
+  matches: 0
+source_repositories:
+  found: false
+  note: >-
+    No GitHub organization belonging to Ara Labs, Inc. exists. The GitHub repository-search
+    API returns zero results for "arascreens" and zero for "arascreens.com". Two adjacent
+    account names DO resolve, and BOTH were checked and rejected as belonging to different
+    entities — recorded here so a later pass does not re-discover them and wrongly wire a
+    GitHubOrganization pointer.
+  checked:
+  - url: https://github.com/arascreens
+    status: 404
+    verdict: does-not-exist
+  - url: https://github.com/ara-screens
+    status: 404
+    verdict: does-not-exist
+  - url: https://github.com/ara-labs
+    status: 200
+    verdict: different-company
+    evidence: >-
+      Org bio reads "Building the AI-native infrastructure for AI scientists"; its repos are
+      Agent-Native-Research-Artifact, ara-cli, paperkit. An AI-research organization where
+      "ARA" abbreviates "Agent-Native Research Artifact". Nothing to do with out-of-home
+      advertising or arascreens.com.
+  - url: https://github.com/aralabs
+    status: 200
+    verdict: unattributable
+    evidence: >-
+      Empty organization — no public repositories, no members, no bio, no website link.
+      Nothing connects it to Ara Labs, Inc., so it cannot be claimed for this profile.
+pointers_emitted: []
+pointer_note: >-
+  Deliberately no `Packages` and no `SDKs` pointer. The pipeline only emits `SDKs` when at
+  least one official first-party client library is found; zero were.

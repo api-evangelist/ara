@@ -26,18 +26,23 @@ description: >-
   api.arascreens.com (Ruby on Rails on Heroku) that answers every route with an HTTP Basic challenge,
   a React driver/operations application at app.arascreens.com, and a third-party signage CMS front
   end at cms.arascreens.com — all credentialed product infrastructure, none of it a developer
-  offering.
+  offering. A second pass enumerated the full host inventory and added four more production hosts to
+  the same finding: outdoor.arascreens.com (an SPA product page for the Ara O49 display),
+  rts.arascreens.com (an unauthenticated Express service serving only its scaffold string),
+  stationary.arascreens.com and assets.arascreens.com. Ara's marketing describes its CMS as
+  "API-driven", meaning its own platform is programmatically operated and can integrate with a
+  partner's existing signage stack — it is not an offer of a public API, and no key issuance,
+  reference or access request mechanism exists anywhere on its surface.
 url: https://raw.githubusercontent.com/api-evangelist/ara/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - techstars
-- y-combinator
 x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-08-10'
+modified: '2026-08-12'
 tags:
 - Company
 - Advertising
@@ -78,23 +83,32 @@ common:
 - type: LLMsTxt
   url: llms/ara-llms.txt
 x-enrichment:
-  date: '2026-08-10'
+  date: '2026-08-12'
   status: minimal
-  artifacts_added: 4
+  artifacts_added: 1
   pass: local-v1
   note: >-
-    Full contract discovery run against every host resolved from arascreens.com. No API,
-    spec, docs, SDK, package, agent card or well-known document exists anywhere. The
-    well-known/ and rate-limits/ artifacts record verified ABSENCES and emit no presence
-    pointer.
+    Second full contract-discovery pass. Round 1 (2026-08-10) probed four hosts guessed from
+    the marketing site; round 2 enumerated the real host inventory passively (18 hosts) and
+    probed the four production hosts round 1 never saw — outdoor, rts, stationary and assets
+    .arascreens.com. Every one missed on specs, GraphQL introspection, MCP tools/list and the
+    whole /.well-known/ set, so round 1's conclusion is unchanged but is now measured against
+    a complete host list instead of an assumed one. Added packages/ recording a verified
+    registry absence across npm, PyPI, RubyGems, crates.io, Packagist and NuGet. Corrected a
+    misattribution: y-combinator was removed from x-backed-by because the YC company named
+    "Ara" is ara.so (S26, a cloud coding agent, San Francisco), a different entity from Ara
+    Labs, Inc. of New York; techstars is retained and independently corroborated. No
+    GitHubOrganization pointer was wired — github.com/ara-labs is an unrelated AI-research
+    org and github.com/aralabs is empty. All absence artifacts emit no presence pointer.
 x-coverage:
   state: none
   reason: no-developer-program
   detail: >-
     Ara's only API host, api.arascreens.com, is a private Rails backend that answers every
     route — including /health — with an HTTP Basic challenge and serves no spec at any
-    conventional path, and the 11-page Squarespace marketing sitemap contains no developer,
-    docs or API page at all.
+    conventional path; the 11-page Squarespace marketing sitemap contains no developer, docs
+    or API page at all; and the four further production hosts found by enumerating the domain
+    serve either an SPA shell, an Express scaffold string, an empty 404 or an S3 AccessDenied.
   evidence:
   - url: https://api.arascreens.com/health
     status: 401
@@ -106,4 +120,14 @@ x-coverage:
     status: 404
   - url: https://www.arascreens.com/.well-known/agent-card.json
     status: 404
-  checked: '2026-08-10'
+  - url: https://outdoor.arascreens.com/openapi.json
+    status: 404
+  - url: https://outdoor.arascreens.com/llms.txt
+    status: 404
+  - url: https://rts.arascreens.com/openapi.json
+    status: 404
+  - url: https://rts.arascreens.com/.well-known/agent-card.json
+    status: 404
+  - url: https://api.arascreens.com/mcp
+    status: 404
+  checked: '2026-08-12'
