@@ -64,6 +64,95 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Ara is a company surfaced as a portfolio company of techstars, y-combinator and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Ara (Ara Labs, Inc.) is a digital out-of-home (DOOH) advertising network that finances, installs, and operates rich-media displays across mobility, municipal, parking, and retail settings. It describes itself as the largest U.S. owner-operator of rideshare and taxi car-top digital billboards, running a long-term partnership with Uber alongside in-car, storefront, and parking/municipal kiosk screens. Ara owns the hardware and content-management operations under a monthly subscription model so fleet owners, retailers, parking operators and municipalities avoid cap-ex and operational overhead, and it also sells self-serve NYC taxi-top ad time by the hour or day. Its own site names Founders Fund, Coatue, Rosecliff Ventures, iHeart Media and Kellogg's as investors. Ara publishes NO public API, SDK, developer portal, documentation site or machine-readable specification. Contract discovery in August 2026 found a live private backend at api.arascreens.com (Ruby on Rails on Heroku) that answers every route with an HTTP Basic challenge, a React driver/operations application at app.arascreens.com, and a third-party signage CMS front end at cms.arascreens.com — all credentialed product infrastructure, none of it a developer offering. A second pass enumerated the full host inventory and added four more production hosts to the same finding: outdoor.arascreens.com (an SPA product page for the Ara O49 display), rts.arascreens.com (an unauthenticated Express service serving only its scaffold string), stationary.arascreens.com and assets.arascreens.com. Ara's marketing describes its CMS as "API-driven", meaning its own platform is programmatically operated and can integrate with a partner's existing signage stack — it is not an offer of a public API, and no key issuance, reference or access request mechanism exists anywhere on its surface.
 
-Backed by: techstars, y-combinator — https://arascreens.com/
+**Areas:** Company · Advertising · Digital Out Of Home · Mobility · Rideshare · Displays · Hardware · Retail Media
+
+## Ara on APIs.io
+
+Everything profiled for Ara is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ara/](https://apis.io/providers/ara/)** — or go straight to one of the APIs or properties below.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Ara Domain Security](https://apis.io/security/ara/ara-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Ara Plans Pricing](https://apis.io/plans/ara/ara-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Ara Rate Limits](https://apis.io/rate-limits/ara/ara-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.arascreens.com/)
+- [Pricing](https://www.arascreens.com/cartopadsorder)
+- [Sign up](https://app.arascreens.com/sign_up)
+- [Terms of service](https://www.arascreens.com/terms-and-conditions)
+- [Privacy policy](https://www.arascreens.com/privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 12.6** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 55.4 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 4.8 |
+| Access clarity | 31.6 |
+
+**Agent readiness 2.5** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 13.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ara/](https://apis.io/providers/ara/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Ara: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ara/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
